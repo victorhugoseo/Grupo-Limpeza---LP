@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -113,14 +112,14 @@ const App: React.FC = () => {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" as const }
+    transition: { duration: 0.6, ease: "easeOut" }
   };
 
   const scaleIn = {
     initial: { opacity: 0, scale: 0.9 },
     whileInView: { opacity: 1, scale: 1 },
     viewport: { once: true },
-    transition: { duration: 0.5, ease: "easeOut" as const }
+    transition: { duration: 0.5, ease: "easeOut" }
   };
 
   const staggerContainer = {
