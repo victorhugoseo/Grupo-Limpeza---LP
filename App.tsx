@@ -419,6 +419,19 @@ const App: React.FC = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          <motion.div {...fadeInUp} className="mt-16 flex flex-col items-center">
+            <div className="flex -space-x-4 mb-6">
+              {[1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="w-14 h-14 rounded-full border-4 border-white bg-brand-blue/10 flex items-center justify-center overflow-hidden">
+                  <img src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="Client avatar" />
+                </div>
+              ))}
+              <div className="w-14 h-14 rounded-full border-4 border-white bg-brand-blue text-white flex items-center justify-center font-black text-xs">
+                +150
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
