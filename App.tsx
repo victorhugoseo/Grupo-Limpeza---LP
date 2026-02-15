@@ -32,9 +32,9 @@ import {
   Brush,
   Quote
 } from 'lucide-react';
-import { SERVICES, FEATURES } from './constants';
-import SmartForm from './components/SmartForm';
-import { ServiceType } from './types';
+import { SERVICES, FEATURES } from './constants.tsx';
+import SmartForm from './components/SmartForm.tsx';
+import { ServiceType } from './types.ts';
 
 // Official Logo URL
 const LOGO_URL = "https://grupolimpeza.com.br/wp-content/uploads/2025/08/cropped-logo-grupo-limpeza-e1755305260221.png";
