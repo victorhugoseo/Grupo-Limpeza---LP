@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -31,9 +32,9 @@ import {
   Brush,
   Quote
 } from 'lucide-react';
-import { SERVICES, FEATURES } from './constants';
-import SmartForm from './components/SmartForm';
-import { ServiceType } from './types';
+import { SERVICES, FEATURES } from './constants.tsx';
+import SmartForm from './components/SmartForm.tsx';
+import { ServiceType } from './types.ts';
 
 // Official Logo URL
 const LOGO_URL = "https://grupolimpeza.com.br/wp-content/uploads/2025/08/cropped-logo-grupo-limpeza-e1755305260221.png";
@@ -112,14 +113,14 @@ const App: React.FC = () => {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" as const }
   };
 
   const scaleIn = {
     initial: { opacity: 0, scale: 0.9 },
     whileInView: { opacity: 1, scale: 1 },
     viewport: { once: true },
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.5, ease: "easeOut" as const }
   };
 
   const staggerContainer = {
@@ -417,19 +418,6 @@ const App: React.FC = () => {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-
-          <motion.div {...fadeInUp} className="mt-16 flex flex-col items-center">
-            <div className="flex -space-x-4 mb-6">
-              {[1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="w-14 h-14 rounded-full border-4 border-white bg-brand-blue/10 flex items-center justify-center overflow-hidden">
-                  <img src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="Client avatar" />
-                </div>
-              ))}
-              <div className="w-14 h-14 rounded-full border-4 border-white bg-brand-blue text-white flex items-center justify-center font-black text-xs">
-                +150
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
