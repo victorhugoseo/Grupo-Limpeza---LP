@@ -1,11 +1,13 @@
 
+// Fix: Added "Outras Limpezas" to the ServiceType union to resolve the assignment error in constants.tsx
 export type ServiceType = 
   | "Limpeza Comercial"
   | "Limpeza Industrial"
   | "Limpeza Residencial"
   | "Limpeza Empresarial"
   | "Limpeza Pós-Obra"
-  | "Limpeza Pré-Mudança";
+  | "Limpeza Pré-Mudança"
+  | "Outras Limpezas";
 
 export interface ServiceItem {
   id: string;

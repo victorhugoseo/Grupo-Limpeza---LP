@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Building2, Factory, Home, Building, HardHat, Package, CheckCircle, Clock, ShieldCheck, Users, Zap, Heart, Lock } from 'lucide-react';
+import { Building2, Factory, Home, Building, HardHat, Package, CheckCircle, Clock, ShieldCheck, Users, Zap, Heart, Lock, Sparkles } from 'lucide-react';
 import { ServiceItem } from './types';
 
 export const SERVICES: ServiceItem[] = [
@@ -57,6 +57,15 @@ export const SERVICES: ServiceItem[] = [
     frequency: 'Única/Conforme necessário',
     icon: 'Package',
     highlight: ''
+  },
+  {
+    id: 'outras',
+    title: 'Outras Limpezas',
+    description: 'Precisa de algo específico? Nós adaptamos nossa equipe para sua necessidade.',
+    idealFor: 'Demandas específicas',
+    frequency: 'Sob consulta',
+    highlight: '',
+    icon: 'Sparkles'
   }
 ];
 

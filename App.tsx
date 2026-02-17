@@ -46,9 +46,15 @@ const App: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedServiceForForm, setSelectedServiceForForm] = useState<ServiceType[]>([]);
   const [scrolled, setScrolled] = useState(false);
+  const [showFloatingText, setShowFloatingText] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      setShowFloatingText(scrollPercent > 10);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -251,7 +257,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, x: -70 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="space-y-8 mobile-center-all z-10"
+            className="space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left z-10"
           >
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
@@ -262,16 +268,16 @@ const App: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
               15+ Anos de Experiência
             </motion.div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-brand-blue leading-[1.1] mobile-center-text">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-brand-blue leading-[1.1]">
               Empresa de Limpeza <br />
               <span className="text-slate-800">Profissional</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 max-w-xl font-semibold mobile-center-text">
+            <p className="text-lg md:text-xl text-slate-600 max-w-xl font-semibold">
               O Grupo Limpeza entrega soluções completas de higienização para empresas, comércios e residências com padrão técnico elevado e atendimento 24 horas.
               <br/> <br/>
               Se você precisa de agilidade, equipe confiável e resultado visível já na primeira visita, está no lugar certo.
             </p>
-            <div className="flex flex-col sm:flex-row gap-5 mobile-w-full">
+            <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
               <motion.button 
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 112, 188, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
@@ -495,6 +501,7 @@ const App: React.FC = () => {
                   {service.id === 'empresarial' && <Building className="w-10 h-10" />}
                   {service.id === 'pos-obra' && <HardHat className="w-10 h-10" />}
                   {service.id === 'pre-mudanca' && <Package className="w-10 h-10" />}
+                  {service.id === 'outras' && <Sparkles className="w-10 h-10" />}
                 </motion.div>
                 <h3 className="text-2xl font-bold text-brand-blue mb-4">{service.title}</h3>
                 <p className="text-slate-600 font-semibold text-sm mb-10 flex-1 leading-relaxed">{service.description}</p>
@@ -519,7 +526,7 @@ const App: React.FC = () => {
       {/* Areas */}
       <section id="areas" className="py-12 bg-slate-50 px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div {...fadeInUp} className="space-y-8 mobile-center-all">
+          <motion.div {...fadeInUp} className="space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left">
             <h2 className="text-3xl md:text-5xl font-bold text-brand-blue">Áreas de <span className="text-slate-800">Atendimento</span></h2>
             <p className="text-slate-600 text-lg font-semibold">Toda a região metropolitana do Rio de Janeiro.</p>
             <div className="grid grid-cols-2 gap-4 w-full">
@@ -592,23 +599,22 @@ const App: React.FC = () => {
 
       {/* FAQ */}
       <section id="faq" className="py-12 px-4 bg-slate-50 overflow-hidden">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <motion.h2 {...fadeInUp} className="text-brand-blue text-3xl md:text-5xl font-bold text-center mb-10">Dúvidas Frequentes</motion.h2>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               { q: "Como funciona a cotação?", a: "Você pode solicitar pelo formulário ou WhatsApp. Nossa equipe faz uma análise rápida da sua necessidade e envia uma proposta personalizada em até 2 horas. Para serviços maiores, realizamos visita técnica sem compromisso." },
               { q: "O valor é fixo ou varia?", a: "O orçamento depende do tipo de ambiente, metragem, nível de sujidade e frequência do serviço. Garantimos preço justo, transparente e proporcional à complexidade da limpeza." },
               { q: "Vocês atendem emergências?", a: "Sim. Atendemos 24 horas, inclusive finais de semana e período noturno, ideal para demandas urgentes ou limpeza fora do horário comercial." },
               { q: "A equipe é própria ou terceirizada?", a: "Trabalhamos com equipe treinada e supervisionada, seguindo protocolos técnicos rigorosos. Isso garante padrão de qualidade, segurança e responsabilidade em cada atendimento." },
               { q: "Quais produtos e equipamentos são utilizados?", a: "Utilizamos produtos adequados para cada superfície e equipamentos profissionais que aumentam a eficiência e reduzem riscos de danos." },
-              { q: "Quais regiões vocês atendem?", a: "Atendemos toda a região metropolitana do Rio de Janeiro: Rio, Niterói, São Gonçalo, Maricá, Itaboraí e bairros adjacentes." },
-              { q: "É possível agendar fora do horário comercial?", a: "Sim. Muitas empresas preferem limpeza noturna para não interromper o funcionamento. Adaptamos o atendimento à sua rotina." }
+              { q: "Quais regiões vocês atendem?", a: "Atendemos toda a região metropolitana do Rio de Janeiro: Rio, Niterói, São Gonçalo, Maricá, Itaboraí e bairros adjacentes." }
             ].map((faq, i) => (
               <motion.div 
                 key={i} 
                 variants={fadeInUp}
                 whileHover={{ scale: 1.01 }}
-                className="bg-white p-8 rounded-3xl border shadow-sm cursor-default"
+                className="bg-white p-8 rounded-3xl border shadow-sm cursor-default h-full"
               >
                 <div className="font-bold text-brand-blue text-lg mb-4">{faq.q}</div>
                 <div className="text-slate-600 font-semibold text-base border-t pt-4">{faq.a}</div>
@@ -632,7 +638,7 @@ const App: React.FC = () => {
             transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -mr-20 -mt-20 blur-3xl pointer-events-none"
           />
-          <div className="relative z-10 space-y-10">
+          <div className="relative z-10 space-y-10 text-center">
             <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white">
               Sua Limpeza Profissional <br /> Começa Aqui
             </h2>
@@ -646,14 +652,6 @@ const App: React.FC = () => {
               >
                 Solicitar Cotação
               </motion.button>
-              <motion.a 
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
-                whileTap={{ scale: 0.95 }}
-                href="https://wa.me/5521971250381" target="_blank"
-                className="w-full md:w-auto px-20 py-7 border-2 border-white/20 text-white font-black text-2xl rounded-2xl flex items-center justify-center gap-4"
-              >
-                <Phone className="w-8 h-8" /> WhatsApp
-              </motion.a>
             </div>
           </div>
         </motion.div>
@@ -712,17 +710,31 @@ const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* Floating Button with Pulse */}
-      <motion.a 
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        href="https://wa.me/5521971250381" target="_blank"
-        className="fixed bottom-8 right-8 z-[90] bg-brand-blue text-white p-6 rounded-2xl shadow-2xl pulse-btn"
-      >
-        <MessageCircle className="w-10 h-10" />
-      </motion.a>
+      {/* Floating Button with Pulse and High-Conversion Text */}
+      <div className="fixed bottom-6 right-6 z-[90] flex items-center gap-3">
+        <AnimatePresence>
+          {showFloatingText && (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="bg-white px-4 py-2 sm:px-6 sm:py-3 rounded-2xl shadow-2xl border-2 border-neon-green/30 text-brand-blue font-black text-[10px] sm:text-sm whitespace-nowrap block"
+            >
+              Faça um cotação on-line!
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <motion.button 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => openForm()}
+          className="bg-neon-green text-white p-4 sm:p-5 rounded-2xl shadow-2xl pulse-btn"
+        >
+          <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8" />
+        </motion.button>
+      </div>
 
       <SmartForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} initialServices={selectedServiceForForm} />
     </div>
