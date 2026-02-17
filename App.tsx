@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -277,17 +276,17 @@ const App: React.FC = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 112, 188, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => openForm()}
-                className="px-10 py-5 bg-brand-blue text-white rounded-2xl font-bold text-lg shadow-2xl shadow-brand-blue/30 w-full sm:w-auto"
+                className="px-10 py-5 bg-brand-blue text-white rounded-2xl font-bold text-lg shadow-2xl shadow-brand-blue/30 w-full sm:w-auto flex items-center justify-center gap-2"
               >
-                Solicitar Cotação Agora
+                Solicitar Cotação Agora ➜
               </motion.button>
               <motion.a 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://wa.me/5521971250381" target="_blank"
-                className="px-10 py-5 border-2 border-brand-blue/20 bg-white text-brand-blue rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-lg w-full sm:w-auto"
+                href="#servicos"
+                className="px-10 py-5 border-2 border-brand-blue/20 bg-white text-brand-blue rounded-2xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg w-full sm:w-auto"
               >
-                <MessageCircle className="w-6 h-6" /> WhatsApp 24h
+                Nossos Serviços ➜
               </motion.a>
             </div>
           </motion.div>
