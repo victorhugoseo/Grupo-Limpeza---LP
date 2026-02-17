@@ -29,7 +29,8 @@ import {
   Snowflake,
   Droplets,
   Brush,
-  Quote
+  Quote,
+  Mail
 } from 'lucide-react';
 import { SERVICES, FEATURES } from './constants.tsx';
 import SmartForm from './components/SmartForm.tsx';
@@ -104,7 +105,7 @@ const App: React.FC = () => {
     },
     { 
       title: "Economia de tempo", 
-      desc: "Foque no seu negócio ou família enquanto cuidamos de cada detalhe da higienização para você.",
+      desc: "Foque no seu negócio or família enquanto cuidamos de cada detalhe da higienização para você.",
       icon: <Clock className="w-8 h-8" />
     },
     { 
@@ -484,7 +485,7 @@ const App: React.FC = () => {
             <p className="text-slate-600 font-bold uppercase tracking-tight text-sm">Soluções planejadas para cada necessidade específica.</p>
           </motion.div>
           <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((service) => (
+            {SERVICES.filter(s => s.id !== 'outras').map((service) => (
               <motion.div 
                 key={service.id} 
                 variants={fadeInUp}
@@ -501,7 +502,6 @@ const App: React.FC = () => {
                   {service.id === 'empresarial' && <Building className="w-10 h-10" />}
                   {service.id === 'pos-obra' && <HardHat className="w-10 h-10" />}
                   {service.id === 'pre-mudanca' && <Package className="w-10 h-10" />}
-                  {service.id === 'outras' && <Sparkles className="w-10 h-10" />}
                 </motion.div>
                 <h3 className="text-2xl font-bold text-brand-blue mb-4">{service.title}</h3>
                 <p className="text-slate-600 font-semibold text-sm mb-10 flex-1 leading-relaxed">{service.description}</p>
@@ -642,13 +642,13 @@ const App: React.FC = () => {
             <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white">
               Sua Limpeza Profissional <br /> Começa Aqui
             </h2>
-            <p className="text-white/90 text-xl md:text-2xl font-bold uppercase tracking-widest">Fale agora com nossa equipe e receba atendimento rápido, técnico e confiável.</p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-6">
+            <p className="text-white/90 text-lg md:text-xl font-bold uppercase tracking-widest">Fale agora com nossa equipe e receba atendimento rápido, técnico e confiável.</p>
+            <div className="flex items-center justify-center pt-6">
               <motion.button 
-                whileHover={{ scale: 1.1, boxShadow: "0 25px 30px -10px rgba(0,0,0,0.3)" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 25px 30px -10px rgba(0,0,0,0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => openForm()}
-                className="w-full md:w-auto px-20 py-7 bg-white text-brand-blue font-black text-2xl rounded-2xl shadow-2xl"
+                className="px-12 py-5 bg-white text-brand-blue font-black text-xl rounded-2xl shadow-2xl whitespace-nowrap"
               >
                 Solicitar Cotação
               </motion.button>
@@ -677,13 +677,12 @@ const App: React.FC = () => {
             <div className="flex gap-6">
               <motion.a whileHover={{ scale: 1.2, y: -5 }} href="https://www.instagram.com/grupolimpeza/" target="_blank" className="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg"><Instagram className="w-6 h-6" /></motion.a>
               <motion.a whileHover={{ scale: 1.2, y: -5 }} href="https://maps.app.goo.gl/iimi4BeS4YV1zLFf6" target="_blank" className="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg"><MapPin className="w-6 h-6" /></motion.a>
-              <motion.a whileHover={{ scale: 1.2, y: -5 }} href="https://wa.me/5521971250381" target="_blank" className="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg"><MessageCircle className="w-6 h-6" /></motion.a>
             </div>
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h4 className="text-brand-blue font-black uppercase text-sm mb-8 tracking-widest">Serviços</h4>
             <ul className="space-y-4 text-base font-bold text-slate-500">
-              {SERVICES.map(service => (
+              {SERVICES.filter(s => s.id !== 'outras').map(service => (
                 <li key={service.id}>
                   <button onClick={() => openForm(service.title)} className="hover:text-brand-blue transition-colors">{service.title}</button>
                 </li>
@@ -693,20 +692,26 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center md:items-start">
             <h4 className="text-brand-blue font-black uppercase text-sm mb-8 tracking-widest">Empresa</h4>
             <ul className="space-y-5 text-base font-bold text-slate-500">
-              <li><a href="#" className="hover:text-brand-blue">Sobre Nós</a></li>
-              <li><a href="https://maps.app.goo.gl/iimi4BeS4YV1zLFf6" target="_blank" className="hover:text-brand-blue">Google Negócio</a></li>
+              <li><a href="https://grupolimpeza.com.br/" target="_blank" className="hover:text-brand-blue">Institucional</a></li>
+              <li><a href="#por-que-nos" className="hover:text-brand-blue">Sobre Nós</a></li>
+              <li><a href="#servicos" className="hover:text-brand-blue">Serviços</a></li>
+              <li><a href="#depoimentos" className="hover:text-brand-blue">Depoimentos</a></li>
+              <li><a href="#faq" className="hover:text-brand-blue">FAQ</a></li>
+              <li><a href="https://maps.app.goo.gl/iimi4BeS4YV1zLFf6" target="_blank" className="hover:text-brand-blue">Google Meu Negócio</a></li>
             </ul>
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h4 className="text-brand-blue font-black uppercase text-sm mb-8 tracking-widest">Contato</h4>
             <ul className="space-y-5 text-base font-bold text-slate-700">
               <li className="flex items-center gap-3"><Phone className="w-5 h-5 text-brand-blue" /> (21) 97125-0381</li>
+              <li className="flex items-center gap-3"><Mail className="w-5 h-5 text-brand-blue" /> contato.grupolimpeza@gmail.com</li>
               <li className="flex items-center gap-3"><MapPin className="w-5 h-5 text-brand-blue" /> Rio de Janeiro - RJ</li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto pt-10 border-t text-center text-slate-400 font-black text-[10px] uppercase tracking-[0.4em]">
-          Copyright © 2026 Grupo Limpeza
+        <div className="max-w-7xl mx-auto pt-10 border-t text-center text-slate-400 font-black text-[10px] uppercase tracking-[0.4em] space-y-2">
+          <div>Copyright © 2026 Grupo Limpeza</div>
+          <div>Desenvolvido por Victor Hugo <a href="https://victorhugoseo.com.br/" target="_blank" className="text-brand-blue hover:underline">Consultor SEO</a></div>
         </div>
       </footer>
 
@@ -720,7 +725,7 @@ const App: React.FC = () => {
               exit={{ opacity: 0, x: 20 }}
               className="bg-white px-4 py-2 sm:px-6 sm:py-3 rounded-2xl shadow-2xl border-2 border-neon-green/30 text-brand-blue font-black text-[10px] sm:text-sm whitespace-nowrap block"
             >
-              Faça um cotação on-line!
+              Faça uma cotação on-line!
             </motion.div>
           )}
         </AnimatePresence>
